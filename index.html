@@ -21,6 +21,7 @@
     line-height:1.55;
   }
   a{color:var(--accent);}
+  button{color:inherit; font-family:inherit;}
   .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
   h1,h2,h3,h4{font-family:inherit; font-weight:700; letter-spacing:-0.01em; margin:0 0 8px;}
   p{margin:0 0 12px; color:var(--muted);}
@@ -141,11 +142,12 @@
   .robot-card{
     border:1px solid var(--border); border-radius:var(--radius); background:var(--panel);
     cursor:pointer; overflow:hidden; transition:.18s; text-align:left; padding:0;
+    color:var(--text); font-family:inherit;
   }
   .robot-card:hover{transform:translateY(-3px); border-color:var(--accent);}
   .robot-card .rc-top{padding:20px 20px 14px;}
   .robot-card .rc-year{font-size:12px; color:var(--muted2); font-weight:700;}
-  .robot-card h3{font-size:18px; margin:4px 0 6px;}
+  .robot-card h3{font-size:18px; margin:4px 0 6px; color:var(--text);}
   .robot-card .rc-tag{font-size:13px; color:var(--muted);}
   .robot-card .rc-stats{display:flex; gap:14px; padding:12px 20px; border-top:1px solid var(--border); background:var(--bg2); font-size:12.5px; color:var(--muted2);}
   .robot-card .rc-stats b{color:var(--text); display:block; font-size:14px;}
@@ -216,6 +218,16 @@
   .perf-toggle .sw{width:10px; height:10px; border-radius:3px;}
   .perf-toggle.off{opacity:.35;}
 
+  /* video-learning */
+  .video-card{display:flex; flex-direction:column;}
+  .video-card h3{font-size:16.5px; margin-top:2px;}
+  .video-links{display:flex; flex-direction:column; gap:8px; margin-top:14px; padding-top:14px; border-top:1px solid var(--border);}
+  .video-links a{
+    font-size:13px; font-weight:600; color:var(--text); text-decoration:none; padding:9px 12px;
+    border:1px solid var(--border); border-radius:9px; background:var(--bg2); transition:.15s;
+  }
+  .video-links a:hover{border-color:var(--accent); color:var(--accent);}
+
   /* themes / challenges */
   .theme-card{border-top:3px solid var(--accent);}
   .challenge-list{list-style:none; margin:0; padding:0; display:grid; gap:12px;}
@@ -251,10 +263,10 @@
   <div class="wrap">
     <div class="hero-badge"><span class="dot"></span> Lab Topic Introduction · July 2026</div>
     <h1>Flapping-Wing Robots</h1>
-    <p class="sub">Hardware (actuators), control algorithms, and a complexity / mass / size analysis across six landmark robots — from an 80&nbsp;mg insect to a 280&nbsp;g pigeon.</p>
+    <p class="sub">Hardware (actuators), control algorithms, and a complexity / mass / size analysis across ten landmark robots — from an 80&nbsp;mg insect to a 280&nbsp;g pigeon, spanning 2009 to 2026.</p>
     <div class="hero-meta">
       <div><b>Lucas Hinkly</b></div>
-      <div>6 robots · 2009–2020</div>
+      <div>10 robots · 2009–2026</div>
     </div>
   </div>
 </header>
@@ -265,12 +277,14 @@
     <a href="#actuation">Actuation</a>
     <a href="#control">Control</a>
     <a href="#taxonomy">Taxonomy</a>
-    <a href="#robots">Six Robots</a>
+    <a href="#robots">Ten Robots</a>
     <a href="#cci">Complexity Index</a>
     <a href="#charts">Charts</a>
     <a href="#performance">Performance</a>
     <a href="#themes">Themes</a>
     <a href="#challenges">Open Challenges</a>
+    <a href="#training">Training</a>
+    <a href="#video-learning">From Video</a>
     <a href="#summary">Summary</a>
     <a href="#references">References</a>
   </div>
@@ -308,11 +322,12 @@
     <ul class="roadmap">
       <li><b>01</b> The actuation challenge (hardware)</li>
       <li><b>02</b> A taxonomy of control architectures (software)</li>
-      <li><b>03</b> Six robots, insect to bird scale — hardware AND control deep dives</li>
+      <li><b>03</b> Ten robots, insect to bird scale, 2009–2026 — hardware AND control deep dives</li>
       <li><b>04</b> Defining a Control Complexity Index (CCI)</li>
       <li><b>05</b> CCI vs. mass vs. size, sub-scores, and actuator economy</li>
       <li><b>06</b> Basic performance comparison (speed, endurance, payload, agility, hover)</li>
       <li><b>07</b> Cross-cutting design trends &amp; open challenges</li>
+      <li><b>08</b> How the newest robots are trained: imitation learning, RL, and hybrids</li>
     </ul>
   </section>
 
@@ -418,7 +433,7 @@
   <section id="robots">
     <div class="section-head">
       <div class="eyebrow">05 · Case Studies</div>
-      <h2>Six robots, insect to bird scale</h2>
+      <h2>Ten robots, insect to bird scale</h2>
       <p>Click a card for the full hardware and control deep dive.</p>
     </div>
     <div class="robot-grid" id="robotGrid"></div>
@@ -438,14 +453,14 @@
       <div class="rubric-card"><div class="rn">4</div><h4>Computational Autonomy</h4><p>1 = off-board / teleoperated · 4 = onboard full autopilot stack (estimation + cascaded control + navigation).</p></div>
     </div>
 
-    <h3 style="margin-top:32px; font-size:16px;">CCI scores — six robots</h3>
+    <h3 style="margin-top:32px; font-size:16px;">CCI scores — ten robots</h3>
     <div style="overflow-x:auto;">
     <table id="cciTable">
       <thead><tr><th>Robot</th><th>Actuation</th><th>Feedback</th><th>Sensing</th><th>Computation</th><th>CCI Total</th><th>Tier</th></tr></thead>
       <tbody></tbody>
     </table>
     </div>
-    <p style="font-size:12.5px; margin-top:14px;">Highest — DelFly Nimble (15): full navigation-grade sensing + cascaded onboard autopilot, the only robot near-maximum on every axis. Lowest tie — DelFly II &amp; RoboBee (8): both rely on an external loop-closer. Bat Bot and PigeonBot tie at 12 via different routes.</p>
+    <p style="font-size:12.5px; margin-top:14px;">New highest — MIT Insect-Scale (16): the only robot maxing out all four axes at once, edging out DelFly Nimble's long-standing 15. Lowest tie — DelFly II &amp; RoboBee (8): both rely on an external loop-closer — a human pilot/vision ground-loop or an off-board motion-capture computer. Bee++ (10) repeats RoboBee's exact Sensing/Computation ceiling despite richer actuation and feedback a decade later.</p>
   </section>
 
   <!-- CHARTS -->
@@ -454,7 +469,7 @@
       <div class="eyebrow">07 · Analysis</div>
       <h2>CCI vs. mass vs. size</h2>
     </div>
-    <div class="methodology"><b>Methodology note —</b> the source deck's chart slides (CCI vs. mass, sub-scores, actuator economy, mass vs. year) were native embedded charts, not extractable as raw data. The totals below reproduce the deck's stated CCI values exactly (DelFly Nimble 15, Bat Bot 12, PigeonBot 12, DelFly II 8, RoboBee 8); axis sub-scores and Nano Hummingbird's total are reconstructed from the CCI rubric applied to each robot's hardware/control deep-dive text. Mass, wingspan, and publication year are as reported in the source papers.</div>
+    <div class="methodology"><b>Methodology note —</b> the CCI table (all four axis sub-scores, for all ten robots) comes directly from the source deck's own table. Mass, wingspan, and publication year are as reported in the source papers — the source deck does not report an exact wingspan for the MIT Insect-Scale robot, so that field is shown as not reported (n/r) rather than estimated. The actuator-economy chart (actuators vs. controllable DOF) was a native embedded chart without an underlying data table in the source file; those points are reconstructed from the deck's descriptive notes about each robot's actuator count and demonstrated control DOF.</div>
 
     <div class="grid grid-2">
       <div class="chart-card">
@@ -468,19 +483,19 @@
         <p class="note">Stacked bars: actuation + feedback + sensing + computation = CCI total.</p>
       </div>
       <div class="chart-card">
-        <h3>Where does the complexity live?</h3>
-        <canvas id="chartHwVsControl" height="260"></canvas>
-        <p class="note">Actuation (hardware) score vs. average of feedback / sensing / computation (control architecture).</p>
-      </div>
-      <div class="chart-card">
         <h3>Actuator economy</h3>
         <canvas id="chartActuatorEconomy" height="260"></canvas>
-        <p class="note">Physical actuators vs. independently controllable flight-relevant DOF they produce.</p>
+        <p class="note">Physical actuators vs. independently controllable flight-relevant DOF they produce. Robots above the dashed 1× line get more DOF than actuators (e.g. RoboBee, Bee++); robots below it spend extra actuators on underactuated shape-morphing (e.g. PigeonBot, Bat Bot) rather than raw DOF count.</p>
       </div>
       <div class="chart-card" style="grid-column:1/-1;">
         <h3>Mass vs. publication year</h3>
         <canvas id="chartMassYear" height="220"></canvas>
         <p class="note">Bubble size ∝ CCI. Has the field trended toward lighter robots over time?</p>
+      </div>
+      <div class="chart-card" style="grid-column:1/-1;">
+        <h3>Where does the complexity live?</h3>
+        <canvas id="chartHwVsControl" height="320"></canvas>
+        <p class="note">Diverging bars: Actuation (hardware) score, left, vs. the average of Feedback / Sensing / Computation (control architecture), right.</p>
       </div>
     </div>
   </section>
@@ -492,15 +507,15 @@
       <h2>Basic performance comparison</h2>
       <p>Each axis scored 1 (least) to 5 (most), independent of the Control Complexity Index. Toggle robots on/off.</p>
     </div>
-    <div class="methodology">Speed / Endurance reward higher demonstrated numbers (m/s, minutes); Payload rewards rated margin, not raw mass; Agility rewards maneuver complexity actually demonstrated; Hover rewards sustained, high-quality hover specifically. Where a paper does not report a figure (Bat Bot speed/endurance; PigeonBot endurance; RoboBee free-flight speed/endurance), the score reflects the paper's qualitative description rather than a fabricated number.</div>
+    <div class="methodology">Speed / Endurance reward higher demonstrated numbers (m/s, minutes); Payload rewards rated margin, not raw mass; Agility rewards maneuver complexity actually demonstrated; Hover rewards sustained, high-quality hover specifically. Where a paper does not report a figure (Bat Bot speed/endurance; PigeonBot endurance; RoboBee free-flight speed/endurance; Aerobat speed/endurance/hover; Bee++ speed; AirPulse speed/endurance), the score reflects the paper's qualitative description rather than a fabricated number. All scores below are taken directly from the source deck's own scoring tables.</div>
     <div class="perf-toggle-row" id="perfToggles"></div>
     <div class="grid grid-2">
       <div class="chart-card">
-        <h3>All six robots, overlaid</h3>
+        <h3>All ten robots, overlaid</h3>
         <canvas id="chartPerfRadar" height="300"></canvas>
       </div>
       <div class="chart-card" style="overflow-x:auto;">
-        <h3>Six robots, side by side</h3>
+        <h3>Ten robots, side by side</h3>
         <table id="perfTable">
           <thead><tr><th>Robot</th><th>Speed</th><th>Endurance</th><th>Payload</th><th>Agility</th><th>Hover</th></tr></thead>
           <tbody></tbody>
@@ -527,7 +542,7 @@
       </div>
       <div class="card theme-card">
         <h3>Complexity tracks design philosophy, not mass</h3>
-        <p>CCI does not scale monotonically with mass or size — the smallest (RoboBee) and largest (PigeonBot) robots both land below the mid-mass DelFly Nimble.</p>
+        <p>CCI does not scale monotonically with mass or size — RoboBee (80 mg) and PigeonBot (280 g) both score below mid-mass DelFly Nimble, though the newest and smallest addition, the 1.29 g MIT Insect-Scale robot, now tops the whole set.</p>
       </div>
       <div class="card theme-card">
         <h3>Sensing, feedback, and computation can be decoupled</h3>
@@ -561,26 +576,83 @@
       <li><b>Scaling up autonomy —</b>&nbsp;several of these robots began teleoperated or externally tracked before gaining onboard control.</li>
       <li><b>Closing the loop on morphing itself —</b>&nbsp;PigeonBot's wing-shape control is still open-loop; no robot in this set senses and feeds back actual wing shape or aerodynamic load in real time.</li>
     </ul>
+    <p style="font-size:12.5px; margin-top:16px; color:var(--muted2);">Within the last few years, four new robots have each pushed a different one of these forward: power density and full autonomy on 26–95 mg-to-40 g platforms (Bee++, Aerobat, AirPulse), and onboard sensing plus learned control on a 1.29 g platform (the MIT Insect-Scale robot).</p>
+  </section>
+
+  <!-- TRAINING -->
+  <section id="training">
+    <div class="section-head">
+      <div class="eyebrow">11 · Emerging Methods</div>
+      <h2>Training algorithms for flapping-wing control</h2>
+      <p>Why this is hard: flapping wings are deformable and aeroelastic, so the high-fidelity simulators that make sim-to-real easy for rigid quadrotors mostly don't exist here. All five approaches below lean on real-world data, imitation learning, or hybrid model-based/model-free architectures rather than pure simulated RL.</p>
+    </div>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead><tr><th>Approach</th><th>Technique</th><th>Key result</th><th>Citation</th></tr></thead>
+      <tbody>
+        <tr><td><b>Imitation learning from expert MPC</b></td><td>Neural net distills a robust-tube MPC controller for high-rate onboard execution</td><td>750-mg robot: 197 cm/s saccades, 10 somersaults in 11 s</td><td>Hsiao et al. 2025, <i>Sci. Adv.</i> eaea8716</td></tr>
+        <tr><td><b>Behavior cloning + domain randomization + PPO</b></td><td>Delay-compensated BC warm-start, then RL fine-tuning on randomized dynamics</td><td>First end-to-end deep-RL flight on soft IMAVs; 50-s zero-shot hover</td><td>Hsiao et al. 2025, arXiv:2502.12355</td></tr>
+        <tr><td><b>PPO in a reduced-order physics simulator</b></td><td>RL trained on a bond-graph model of a bio-inspired feather sensor/actuator</td><td>Stabilizes an open-loop-unstable system across 5–20 m/s gusts</td><td>Hussain et al. 2026, <i>Sensors</i> 26, 1009</td></tr>
+        <tr><td><b>Reinforcement Twinning (hybrid)</b></td><td>Model-free RL + a model-based adaptive "digital twin," linked via transfer learning</td><td>Combines RL robustness with model-based data efficiency</td><td>Poletti et al. 2025, arXiv:2505.18201</td></tr>
+        <tr><td><b>Wing-strain-based RL ("Fly-by-Feel")</b></td><td>RL trained directly on real onboard wing-strain sensor data, no simulated aerodynamics</td><td>Precise maneuverability without a fluid-structure-interaction model</td><td>Kim et al. 2024, <i>Nat. Mach. Intell.</i> 6</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:12.5px; margin-top:14px; color:var(--muted2);">Quadrotor RL succeeded quickly in simulation because rigid-body dynamics are cheap and accurate to simulate; flapping wings couple structural deformation, unsteady aerodynamics, and fast body dynamics in ways that don't have an equivalently cheap high-fidelity simulator yet — hence the reliance on distillation, domain randomization, hybrid twins, and real sensor data above rather than training from scratch in sim.</p>
+  </section>
+
+  <!-- LEARNING FROM VIDEO -->
+  <section id="video-learning">
+    <div class="section-head">
+      <div class="eyebrow">12 · Emerging Methods</div>
+      <h2>Learning directly from real animal flight footage</h2>
+      <p>A distinct, emerging thread from the five approaches above: instead of training against simulated or expert-controller dynamics, these efforts train or benchmark directly against video of real birds and insects in free flight. Neither pipeline yet closes the loop on physical flapping-wing hardware — but as onboard compute gets cheaper, video-derived kinematics/imitation targets are a plausible sixth training approach.</p>
+    </div>
+    <div class="grid grid-2">
+      <div class="card video-card">
+        <span class="tag a">Row 1 · Design benchmarking</span>
+        <h3>Video → kinematics extraction</h3>
+        <p>A markerless motion-tracking network (DeepLabCut) is run on video of freely-flying Canada geese and a frigatebird to automatically digitize wing points and reconstruct 3-D wingbeat trajectories. This quantifies stroke asymmetry and a ~19% swing in effective wing area across the stroke in both species — concrete kinematic benchmarks for bio-inspired MAV wing design, not yet a closed-loop controller.</p>
+        <p style="font-size:12px;color:var(--muted2);">Leontiuk, Kastalskiy, Khalid &amp; Kazantsev 2026, <i>Biomimetics</i> 11(3), art. 212</p>
+        <div class="video-links">
+          <a href="https://doi.org/10.3390/biomimetics11030212" target="_blank" rel="noopener noreferrer">Paper (open access, CC BY) ↗</a>
+          <a href="https://www.istockphoto.com/video/canada-казарка-gm473176079-23912841" target="_blank" rel="noopener noreferrer">Source video analyzed (iStock clip) ↗</a>
+        </div>
+      </div>
+      <div class="card video-card">
+        <span class="tag b">Row 2 · Closed loop</span>
+        <h3>Video → imitation-learned flight controller</h3>
+        <p>An anatomically detailed <i>Drosophila</i> body, built from confocal-microscopy scans in MuJoCo, is driven by a neural-network controller trained with deep-RL imitation learning against 272 high-speed-video-tracked flight trajectories (~53 s) of real, freely-flying <i>Drosophila hydei</i> — reproducing real saccades and evasive turns from steering commands alone. Today this is a simulated musculoskeletal digital twin, not rigid hardware, but it demonstrates the full video-to-controller pipeline.</p>
+        <p style="font-size:12px;color:var(--muted2);">Vaxenburg et al. 2025, <i>Nature</i> 643, pp. 1312–1320</p>
+        <div class="video-links">
+          <a href="https://doi.org/10.1038/s41586-025-09029-4" target="_blank" rel="noopener noreferrer">Paper ↗</a>
+          <a href="https://github.com/TuragaLab/flybody" target="_blank" rel="noopener noreferrer">Code + demo notebooks ↗</a>
+          <a href="https://www.biorxiv.org/content/biorxiv/early/2024/11/22/2024.03.11.584515/DC1/embed/media-1.zip?download=true" target="_blank" rel="noopener noreferrer">Supplementary demo videos (bioRxiv, CC BY 4.0) ↗</a>
+        </div>
+      </div>
+    </div>
+    <div class="methodology" style="margin-top:20px;">None of these three sources is a directly embeddable video file: the iStock clip is licensed stock footage behind a preview player, the bioRxiv link is a downloadable zip of supplementary clips rather than a streamable file, and the GitHub repo hosts code and notebooks, not video. Rather than embed a broken or paywalled player, each is linked out above exactly as in the source deck.</div>
   </section>
 
   <!-- SUMMARY -->
   <section id="summary">
     <div class="section-head">
-      <div class="eyebrow">11 · Wrap-up</div>
+      <div class="eyebrow">13 · Wrap-up</div>
       <h2>Summary</h2>
     </div>
     <ul class="summary-points">
       <li>Every flapping-wing robot answers two questions: how do you actuate the wing (hardware), and how do you compute and close the loop on its motion to generate torques (control software)?</li>
       <li>Across mg-to-100s-of-g scales, designers trade actuator count, feedback architecture, sensing burden, and computational autonomy against each other — not against a single "complexity" dial.</li>
-      <li>The Control Complexity Index shows this trade-off is <b>not</b> simply a function of mass or size — DelFly Nimble's fully autonomous cascaded autopilot scores highest despite being mid-mass, while the smallest (RoboBee) and among the largest (PigeonBot) both score lower.</li>
-      <li>Bio-inspiration — feathers, bat membranes, insect wing hinges — is increasingly used to move control burden from actuators and computation into passive structure.</li>
+      <li>The Control Complexity Index shows this trade-off is <b>not</b> simply a function of mass, size, or age — the newest and smallest addition (the 1.29 g MIT Insect-Scale robot) now scores highest of all ten, while the original smallest (RoboBee) and among the largest (PigeonBot) both score lower.</li>
+      <li>Bio-inspiration — feathers, bat membranes, insect wing hinges, butterfly undulation — is increasingly used to move control burden from actuators and computation into passive structure.</li>
+      <li>The field is moving fast: within the last few years, four new robots have each pushed a different open challenge forward — power density and full autonomy on 26–95 mg-to-40 g platforms, and onboard sensing plus learned control on a 1.29 g platform.</li>
     </ul>
   </section>
 
   <!-- REFERENCES -->
   <section id="references">
     <div class="section-head">
-      <div class="eyebrow">12 · Sources</div>
+      <div class="eyebrow">14 · Sources</div>
       <h2>References</h2>
     </div>
     <ol class="refs" id="refsList"></ol>
@@ -617,8 +689,8 @@ const robots = [
       "This is a closed feedback loop (Tier 2), and in later autonomous-flight demonstrations an onboard flight computer closes it without a human in the loop (Tier 3-adjacent) — but it is a single control law acting on two independent, purpose-built control surfaces.",
       "Demonstrated hover, backward flight, and 7 m/s forward flight using this architecture."
     ],
-    cci:{actuation:2, feedback:3, sensing:2, computation:1, total:8},
-    perf:{speed:3, endurance:4, payload:2, agility:3, hover:4}
+    cci:{actuation:2, feedback:2, sensing:2, computation:2, total:8},
+    perf:{speed:4, endurance:5, payload:2, agility:3, hover:3}
   },
   {
     id:'nano', name:'Nano Hummingbird', year:2012, mass_g:19, span_cm:16.5, tier:'2',
@@ -638,8 +710,8 @@ const robots = [
       "Architecture Tier 2: the onboard PCB performs signal conditioning but a human pilot closes the outer attitude/position loop over an RC link — there is no autonomous onboard feedback controller flying this vehicle.",
       "Net effect: rich, independently-actuated wing kinematics (high actuation-channel complexity) paired with essentially zero onboard autonomy (low computational-autonomy complexity)."
     ],
-    cci:{actuation:4, feedback:2, sensing:2, computation:1, total:9},
-    perf:{speed:2, endurance:3, payload:3, agility:3, hover:5}
+    cci:{actuation:3, feedback:2, sensing:2, computation:2, total:9},
+    perf:{speed:3, endurance:4, payload:2, agility:4, hover:5}
   },
   {
     id:'robobee', name:'RoboBee', year:2013, mass_g:0.08, span_cm:3, tier:'2',
@@ -659,8 +731,8 @@ const robots = [
       "This is the first insect-scale robot to demonstrate independent closed-loop control of all three rotational axes plus vertical force simultaneously — controlled hovering and basic trajectory following were both shown.",
       "Fully onboard sensing and autonomous attitude estimation were NOT part of this 2013 result — those milestones appear only in later Harvard follow-on papers, outside this reading list."
     ],
-    cci:{actuation:4, feedback:2, sensing:1, computation:1, total:8},
-    perf:{speed:1, endurance:1, payload:1, agility:2, hover:3}
+    cci:{actuation:3, feedback:3, sensing:1, computation:1, total:8},
+    perf:{speed:1, endurance:1, payload:1, agility:2, hover:2}
   },
   {
     id:'batbot', name:'Bat Bot (B2)', year:2017, mass_g:93, span_cm:30, tier:'3',
@@ -681,7 +753,7 @@ const robots = [
       "Architecture Tier 3: onboard sensing + onboard computation + a genuinely closed attitude loop, but still a single-loop (not cascaded inner/outer) architecture relative to DelFly Nimble's autopilot stack."
     ],
     cci:{actuation:4, feedback:3, sensing:2, computation:3, total:12},
-    perf:{speed:2, endurance:2, payload:1, agility:4, hover:2}
+    perf:{speed:2, endurance:2, payload:1, agility:4, hover:1}
   },
   {
     id:'nimble', name:'DelFly Nimble', year:2018, mass_g:29, span_cm:33, tier:'3',
@@ -702,7 +774,7 @@ const robots = [
       "Net effect: the richest sensing package, the most autonomous computation, and the most sophisticated feedback architecture of any robot in this set — it scores highest on the Control Complexity Index."
     ],
     cci:{actuation:3, feedback:4, sensing:4, computation:4, total:15},
-    perf:{speed:4, endurance:4, payload:2, agility:5, hover:4}
+    perf:{speed:4, endurance:4, payload:4, agility:5, hover:4}
   },
   {
     id:'pigeon', name:'PigeonBot', year:2020, mass_g:280, span_cm:80, tier:'0/2',
@@ -723,7 +795,91 @@ const robots = [
       "Because feather engagement is a passive, load-dependent process (Tier 1), the same low-dimensional 2-DOF input reliably produces a smooth, continuous wing surface without any additional actuation or feedback."
     ],
     cci:{actuation:3, feedback:2, sensing:4, computation:3, total:12},
-    perf:{speed:4, endurance:3, payload:4, agility:2, hover:1}
+    perf:{speed:5, endurance:3, payload:5, agility:3, hover:1}
+  },
+  {
+    id:'aerobat', name:'Aerobat', year:2022, mass_g:40, span_cm:30, tier:'2 (hybrid)',
+    tagline:'14-joint bat-inspired hybrid stabilizer',
+    cite:'Sihite & Ramezani, arXiv:2212.05361 (2022, preprint); Salagame, M.S. Thesis, Northeastern Univ. (2022)',
+    hardware:[
+      "14 body joints across two multi-segment, articulated wings — directly inspired by a bat wing skeleton, replacing the rigid or biplane wings seen so far with a fully jointed one.",
+      "Only a handful of primary flapping motors drive the wings; the remaining joints move through a passive “computational structure” — a compliant carbon-fiber linkage that mechanically encodes joint coupling, so a few tiny, low-power shape-memory-alloy “primer” actuators can redirect large-amplitude joint motion without a dedicated motor per joint.",
+      "40 g total mass fully equipped for untethered flight (battery + electronics included) and 30 cm wingspan — from the same lab and PI (Ramezani) as Bat Bot, evolving 5 DoA into 14 jointed DOF.",
+      "Onboard avionics: an IMU plus a camera (tested with both FPV analog and Raspberry Pi camera modules) feeding a compact onboard computer for perception, within a stated ~40 g additional payload budget.",
+      "Demonstrated stabilized untethered flights of 7 m indoors and 10 m outdoors using auxiliary propeller “guard” stabilizers for roll/pitch alongside the bat-like flapping wings — a hybrid strategy, not yet a wings-only closed loop."
+    ],
+    control:[
+      "Attitude stabilization in untethered test flights uses a classic PID “guard controller” acting on auxiliary stabilizer thrusters, closing the loop around IMU-measured roll and pitch — not yet the flapping wings themselves.",
+      "In parallel, the primer/computational-structure framework is designed to regulate the 14 wing joints directly via a “reference governor” model — validated in simulation and bench tests, but not yet folded into the untethered flight controller above.",
+      "Onboard perception stack includes an IMU sampled up to 200 Hz and a camera intended for visual-inertial odometry — explicitly limited by the platform's small onboard-compute budget.",
+      "Aerobat is tailless and open-loop pitch-unstable by design, so the stabilization loop is a hard requirement for any flight at all, not an optional refinement.",
+      "Net effect: a genuinely hybrid architecture — one loop (auxiliary-thruster attitude stabilization) is closed and flying today; a second, more ambitious loop (direct wing-joint regulation via mechanical intelligence) exists only in simulation/bench tests so far."
+    ],
+    cci:{actuation:3, feedback:2, sensing:3, computation:3, total:11},
+    perf:{speed:1, endurance:1, payload:4, agility:1, hover:1}
+  },
+  {
+    id:'beeplus', name:'Bee++', year:2023, mass_g:0.095, span_cm:3.3, tier:'2',
+    tagline:'Four-wing, full-6-DOF piezoelectric micro-flapper',
+    cite:'Bena, Yang, Calderón & Pérez-Arancibia, IEEE Trans. Robot. 39(2), pp. 1668–1684 (2023)',
+    hardware:[
+      "Four independently driven wings — double RoboBee's two — each actuated by its own lightweight piezoelectric-style actuator, with carbon-fiber-and-Mylar wing membranes.",
+      "Each wing is mounted with a fixed inclined stroke plane rather than RoboBee's flat stroke plane — this geometric change alone is what lets four wings jointly generate independent roll, pitch, and yaw torques plus vertical thrust.",
+      "95 mg total mass, 3.3 cm wingspan, flapping at up to 160 Hz — raised from predecessor Bee+'s ~100 Hz to add control authority.",
+      "Like RoboBee, carries no onboard sensors or computer: all flight tests are powered and instrumented through a thin tether, with position and attitude measured by an external Vicon motion-capture system at 500 Hz.",
+      "Direct lineage: the same USC lab (Pérez-Arancibia, a RoboBee-program alumnus) evolving the two-wing Bee+ into a four-wing, full-6-DOF-capable platform."
+    ],
+    control:[
+      "Architecture: a Lyapunov-based nonlinear control law simultaneously regulates position (x, y, z) AND attitude (roll, pitch, yaw) — full 6-DOF authority from just four actuated inputs, the most complete simultaneous regulation of any robot in this set at this mass.",
+      "Control allocation: the controller varies each wing's stroke amplitude independently in real time, exploiting the inclined-stroke-plane geometry to decouple the four wings' torque contributions.",
+      "State feedback comes entirely from the external Vicon rig — position and attitude at 500 Hz — processed on an off-board Simulink Real-Time computer running the control law at 2 kHz and streaming actuator commands back down the tether.",
+      "Angular velocity is not measured directly; it is estimated from the motion-capture quaternion stream via a numerical filter, since no onboard rate gyro fits this mass budget.",
+      "Net effect — the same profile as RoboBee: a highly sophisticated feedback law paired with essentially zero onboard sensing or computation autonomy, because neither fits on a 95 mg airframe yet."
+    ],
+    cci:{actuation:4, feedback:4, sensing:1, computation:1, total:10},
+    perf:{speed:1, endurance:2, payload:1, agility:4, hover:4}
+  },
+  {
+    id:'mit', name:'MIT Insect-Scale', year:2025, mass_g:1.29, span_cm:null, tier:'3+',
+    tagline:'Highest-CCI insect-scale robot with full onboard autonomy',
+    cite:'Kim et al., Sci. Robot. 10, art. eadp4256 (2025); Hsiao et al., arXiv:2602.08328 (2026, preprint)',
+    hardware:[
+      "Four independent dielectric elastomer actuator (DEA) flapping-wing modules — a soft direct-drive actuator, distinct from RoboBee's rigid piezoelectric bimorphs, with no motor or gearbox.",
+      "Reinforced transmission and hinge design reduces off-axis torsional stress and deformation, enabling a 1000-second continuous hover — two orders of magnitude beyond prior sub-gram MAVs.",
+      "Lift-to-weight ratio of 2.2, sub-1-cm RMS trajectory-tracking error, and double body flips at rotational rates exceeding the fastest flying insects.",
+      "A 244-mg add-on flight-electronics package — 14-mg IMU, 13-mg time-of-flight sensor, 90-mg optical-flow sensor, 7-mg dual-core microcontroller — brings the vehicle to 1.29 g total while keeping sensing/computation to just 6% of the actuators' power draw.",
+      "DEAs scale volumetrically, unlike thickness-limited piezoelectric bimorphs — precisely what let this generation absorb the added sensor payload without re-deriving the whole actuator from scratch."
+    ],
+    control:[
+      "Cascaded, three-stage onboard estimator: a Mahony complementary filter estimates attitude from the IMU, then a Kalman filter estimates altitude from the time-of-flight sensor, then a second Kalman filter estimates lateral velocity from optical flow — deliberately kept to simple 2×2 matrix math (no Jacobians) to fit a 7-mg microcontroller.",
+      "Milestone: the first insect-scale robot ever flown with BOTH fully onboard sensing AND fully onboard computation at once — every earlier robot in this deck was externally tracked, off-board computed, or both, at some point.",
+      "Hierarchical control: a human issues slow (~1–2 Hz) high-level position commands over a fast (480 Hz) onboard stabilization loop — flown outside a motion-capture arena, avoiding obstacles, landing on a sunflower.",
+      "A companion paper trains aerobatic maneuvers differently: an expert robust-tube MPC controller is distilled into a neural network via imitation learning, letting a 750-mg sibling vehicle execute saccades at 197 cm/s and 10 consecutive somersaults in 11 seconds on compute-constrained hardware.",
+      "Between these two papers, one platform family has independently solved sensing autonomy, computation autonomy, and aggressive learned maneuver control — each with a different technique, not yet combined into a single flight."
+    ],
+    cci:{actuation:4, feedback:4, sensing:4, computation:4, total:16},
+    perf:{speed:5, endurance:5, payload:3, agility:5, hover:5}
+  },
+  {
+    id:'airpulse', name:'AirPulse', year:2026, mass_g:26, span_cm:6, tier:'3',
+    tagline:'Fewest-actuator, fully autonomous butterfly-inspired flapper',
+    cite:'Gu et al., arXiv:2602.06811 (2026, preprint)',
+    hardware:[
+      "Two micro servos total — one per side — each driving a forewing-hindwing pair through a fixed V-shaped dihedral linkage; the fewest physical actuators of any robot in this set.",
+      "Biomimetic, low-aspect-ratio, compliant carbon-fiber-reinforced wings modeled directly on a swallowtail butterfly (Papilio demoleus), including its forewing venation pattern.",
+      "Deliberately LOW flapping frequency (~10 Hz) instead of the 100+ Hz typical of insect-scale flappers — reproduces the large-amplitude wingstrokes and pronounced body undulation of real butterfly flight, an aerodynamic regime prior tailless flappers avoided.",
+      "26 g wet mass (24 g dry) with all avionics onboard: a 9-axis IMU, a barometer, and a receiver kept only as a safety override — no motion capture or offboard computer of any kind.",
+      "All flight testing is fully untethered and autonomous — the newest robot in this set to fly with completely self-contained sensing and computation on this simple an airframe."
+    ],
+    control:[
+      "Hierarchical architecture: an onboard state estimator feeds an attitude controller, which sets targets for a central pattern generator (CPG) that drives the wingstroke — fully onboard, no external tracking of any kind.",
+      "Core innovation, “STAR” (Stroke Timing Asymmetry Rhythm): a modification to the CPG's oscillator that translates attitude-control demands into smooth, bounded left/right wingstroke-timing and angle-offset asymmetries, without distorting the cycle-averaged flapping frequency the low-frequency gait depends on.",
+      "State estimation and gain tuning lean on recursive-least-squares and IIR filtering to extract a clean, low-frequency attitude signal from IMU data otherwise dominated by the robot's own large body oscillations.",
+      "With only 2 physical actuators, the controller achieves closed-loop climbing and directed-turning maneuvers — a high ratio of control authority to actuator count, achieved through the STAR software scheme rather than added hardware.",
+      "Net effect: the fewest actuators of any robot in this set, paired with fully onboard sensing AND fully onboard computation — a control-architecture profile that mirrors the MIT robot's autonomy despite a far simpler, 2-actuator airframe."
+    ],
+    cci:{actuation:2, feedback:3, sensing:4, computation:4, total:13},
+    perf:{speed:2, endurance:2, payload:2, agility:3, hover:1}
   }
 ];
 
@@ -731,9 +887,13 @@ const actuatorEconomy = [
   {id:'delfly2', actuators:3, dof:3},
   {id:'nano', actuators:3, dof:5},
   {id:'robobee', actuators:2, dof:4},
-  {id:'batbot', actuators:5, dof:5},
+  {id:'batbot', actuators:5, dof:2},
   {id:'nimble', actuators:3, dof:3},
-  {id:'pigeon', actuators:5, dof:2}
+  {id:'pigeon', actuators:4, dof:1},
+  {id:'aerobat', actuators:4, dof:2},
+  {id:'beeplus', actuators:4, dof:6},
+  {id:'mit', actuators:4, dof:6},
+  {id:'airpulse', actuators:2, dof:3}
 ];
 
 const references = [
@@ -748,12 +908,29 @@ const references = [
   { text:"Matloff, L.Y., Chang, E., Feo, T.J., Jeffries, L., Stowers, A.K., Thomson, C. &amp; Lentink, D. How flight feathers stick together to form a continuous morphing wing. <i>Science</i> 367(6475), pp. 293–297, 2020.", url:"https://doi.org/10.1126/science.aaz3358" },
   { text:"Chang, E., Matloff, L.Y., Stowers, A.K. &amp; Lentink, D. Soft biohybrid morphing wings with feathers underactuated by wrist and finger motion. <i>Sci. Robot.</i> 5(38), art. eaay1246, 2020.", url:"https://doi.org/10.1126/scirobotics.aay1246" },
   { text:"Lentink, D., Müller, U.K., Stamhuis, E.J., de Kat, R., van Gestel, W., Veldhuis, L.L.M. et al. How swifts control their glide performance with morphing wings. <i>Nature</i> 446, pp. 1082–1085, 2007.", url:"https://doi.org/10.1038/nature05733" },
-  { text:"Keennon, M. et al. Methods and apparatus to achieve independent six degree control of flapping wing micro air vehicle. U.S. Patent 9,428,269 B1, filed 2013, issued Aug. 30, 2016.", url:"https://patents.google.com/patent/US9428269B1/en" }
+  { text:"Keennon, M. et al. Methods and apparatus to achieve independent six degree control of flapping wing micro air vehicle. U.S. Patent 9,428,269 B1, filed 2013, issued Aug. 30, 2016.", url:"https://patents.google.com/patent/US9428269B1/en" },
+  { text:"Kim, S., Hsiao, Y.-H., Ren, Z., Huang, J. &amp; Chen, Y. Acrobatics at the insect scale: A durable, precise, and agile micro-aerial robot. <i>Sci. Robot.</i> 10(98), art. eadp4256, 2025.", url:"https://doi.org/10.1126/scirobotics.adp4256" },
+  { text:"Hsiao, Y.-H., Kieu, Q.P., Guan, Z., Kim, S., Cai, J., Matteson, O., How, J.P., Helbling, E.F. &amp; Chen, Y. Controlled flight of an insect-scale flapping-wing robot via integrated onboard sensing and computation. arXiv:2602.08328, 2026 (preprint).", url:"https://arxiv.org/abs/2602.08328" },
+  { text:"Hsiao, Y.-H., Tagliabue, A., Matteson, O., Zhao, T., How, J.P. &amp; Chen, Y. Aerobatic maneuvers in insect-scale flapping-wing aerial robots via deep-learned robust tube model predictive control. <i>Sci. Adv.</i> 11(49), art. eaea8716, 2025.", url:"https://doi.org/10.1126/sciadv.aea8716" },
+  { text:"Hsiao, Y.-H., Chen, W.-T., Chang, Y.-S., Agrawal, P. &amp; Chen, Y. Hovering flight of soft-actuated insect-scale micro aerial vehicles using deep reinforcement learning. arXiv:2502.12355, 2025.", url:"https://arxiv.org/abs/2502.12355" },
+  { text:"Hussain, S., Messaoudi, M., Imran, M. &amp; Tang, D. PPO-based reinforcement learning control of a flapping-wing robot with a bio-inspired sensing and actuation feather unit. <i>Sensors</i> 26(3), art. 1009, 2026.", url:"https://doi.org/10.3390/s26031009" },
+  { text:"Poletti, R., Schena, L., Koloszar, L., Degroote, J. &amp; Mendez, M.A. Reinforcement twinning for hybrid control of flapping-wing drones. arXiv:2505.18201, 2025.", url:"https://arxiv.org/abs/2505.18201" },
+  { text:"Kim, T., Hong, I., Im, S. &amp; Rho, S. Fly-by-feel: wing-strain-based flight control of flapping-wing drones through reinforcement learning. <i>Nat. Mach. Intell.</i> 6, pp. 992–1005, 2024.", url:"https://doi.org/10.1038/s42256-024-00893-9" },
+  { text:"Bena, R.M., Yang, X., Calderón, A.A. &amp; Pérez-Arancibia, N.O. High-performance six-DOF flight control of the Bee++: An inclined-stroke-plane approach. <i>IEEE Trans. Robot.</i> 39(2), pp. 1668–1684, 2023.", url:"https://doi.org/10.1109/TRO.2022.3218260" },
+  { text:"Sihite, E. &amp; Ramezani, A. Aerobat, a bioinspired drone to test high-DOF actuation and embodied aerial locomotion. arXiv:2212.05361, 2022 (preprint).", url:"https://arxiv.org/abs/2212.05361" },
+  { text:"Salagame, A. Progress towards untethered autonomous flight of Northeastern University's Aerobat. M.S. Thesis, Northeastern University, 2022.", url:"https://arxiv.org/abs/2307.11759" },
+  { text:"Gu, W., Feng, C., Liu, L., Yang, C., Jiao, X., Ding, Y., Shi, X., Gao, C., Rizzo, A. &amp; Zhou, G. A 26-gram butterfly-inspired robot achieving autonomous tailless flight. arXiv:2602.06811, 2026 (preprint).", url:"https://arxiv.org/abs/2602.06811" },
+  { text:"Leontiuk, V., Kastalskiy, I., Khalid, W. &amp; Kazantsev, V.B. Stroke asymmetry in bird wing dynamics during flight from video data. <i>Biomimetics</i> 11(3), art. 212, 2026.", url:"https://doi.org/10.3390/biomimetics11030212" },
+  { text:"Vaxenburg, R., Siwanowicz, I., Merel, J., Robie, A.A., Morrow, C., Novati, G., Stefanidi, Z., Both, G.-J., Card, G.M., Reiser, M.B., Botvinick, M.M., Branson, K.M., Tassa, Y. &amp; Turaga, S.C. Whole-body simulation of realistic fruit fly locomotion with deep reinforcement learning. <i>Nature</i> 643, pp. 1312–1320, 2025.", url:"https://doi.org/10.1038/s41586-025-09029-4" }
 ];
 
 const palette = {
-  delfly2:'#4fd1c5', nano:'#f2b134', robobee:'#e8613c', batbot:'#7c9cff', nimble:'#f26cae', pigeon:'#8bd450'
+  delfly2:'#4fd1c5', nano:'#f2b134', robobee:'#e8613c', batbot:'#7c9cff', nimble:'#f26cae', pigeon:'#8bd450',
+  aerobat:'#c084fc', beeplus:'#fb7185', mit:'#38bdf8', airpulse:'#a3e635'
 };
+function massText(r){ return r.mass_g < 1 ? (r.mass_g*1000).toFixed(0)+' mg' : r.mass_g+' g'; }
+function spanText(r){ return (r.span_cm === null || r.span_cm === undefined) ? 'n/r' : r.span_cm+' cm'; }
+function bubbleR(r){ return r.span_cm ? Math.max(8, r.span_cm/2.4) : 8; }
 
 /* ---------------- RENDER: ROBOT CARDS ---------------- */
 const robotGrid = document.getElementById('robotGrid');
@@ -767,8 +944,8 @@ robots.forEach(r=>{
       <div class="rc-tag">${r.tagline}</div>
     </div>
     <div class="rc-stats">
-      <div><b>${r.mass_g < 1 ? (r.mass_g*1000).toFixed(0)+' mg' : r.mass_g+' g'}</b>mass</div>
-      <div><b>${r.span_cm} cm</b>span</div>
+      <div><b>${massText(r)}</b>mass</div>
+      <div><b>${spanText(r)}</b>span</div>
       <div><b>${r.cci.total}</b>CCI</div>
     </div>`;
   el.addEventListener('click', ()=>openModal(r.id));
@@ -788,8 +965,8 @@ function openModal(id){
       <div class="cite">${r.cite}</div>
     </div>
     <div class="modal-stats">
-      <div class="modal-stat">Mass<b>${r.mass_g < 1 ? (r.mass_g*1000).toFixed(0)+' mg' : r.mass_g+' g'}</b></div>
-      <div class="modal-stat">Wingspan<b>${r.span_cm} cm</b></div>
+      <div class="modal-stat">Mass<b>${massText(r)}</b></div>
+      <div class="modal-stat">Wingspan<b>${spanText(r)}</b></div>
       <div class="modal-stat">CCI total<b>${r.cci.total} / 16</b></div>
       <div class="modal-stat">Actuation<b>${r.cci.actuation}</b></div>
       <div class="modal-stat">Feedback<b>${r.cci.feedback}</b></div>
@@ -879,14 +1056,14 @@ new Chart(document.getElementById('chartCciMass'), {
   type:'bubble',
   data:{ datasets: robots.map(r=>({
     label:r.name,
-    data:[{x:r.mass_g, y:r.cci.total, r:Math.max(8, r.span_cm/2.4)}],
+    data:[{x:r.mass_g, y:r.cci.total, r:bubbleR(r)}],
     backgroundColor: palette[r.id]+'cc',
     borderColor: palette[r.id], borderWidth:1.5
   }))},
   options:{
     responsive:true,
     plugins:{ legend:{position:'bottom', labels:{boxWidth:10, font:{size:11}}},
-      tooltip:{ callbacks:{ label:(ctx)=>{ const r=robots[ctx.datasetIndex]; return `${r.name}: ${r.mass_g}g, CCI ${r.cci.total}, span ${r.span_cm}cm`; } } } },
+      tooltip:{ callbacks:{ label:(ctx)=>{ const r=robots[ctx.datasetIndex]; return `${r.name}: ${massText(r)}, CCI ${r.cci.total}, span ${spanText(r)}`; } } } },
     scales:{
       x:{ type:'logarithmic', title:{display:true, text:'Mass (g, log scale)'}, grid:{color:'#1c2733'} },
       y:{ min:0, max:16, title:{display:true, text:'CCI total'}, grid:{color:'#1c2733'} }
@@ -916,20 +1093,43 @@ new Chart(document.getElementById('chartSubscores'), {
   }
 });
 
-// 3. Hardware vs Control architecture
+// 3. Hardware vs Control architecture — diverging bar chart
+const hwSwRobots = robots.slice().sort((a,b)=>{
+  const avgA = (a.cci.feedback+a.cci.sensing+a.cci.computation)/3 - a.cci.actuation;
+  const avgB = (b.cci.feedback+b.cci.sensing+b.cci.computation)/3 - b.cci.actuation;
+  return avgB - avgA;
+});
 new Chart(document.getElementById('chartHwVsControl'), {
-  type:'scatter',
-  data:{ datasets: robots.map(r=>({
-    label:r.name,
-    data:[{x:r.cci.actuation, y:(r.cci.feedback+r.cci.sensing+r.cci.computation)/3}],
-    backgroundColor: palette[r.id], pointRadius:8, pointHoverRadius:10
-  }))},
+  type:'bar',
+  data:{
+    labels: hwSwRobots.map(r=>r.name),
+    datasets:[
+      {
+        label:'Actuation (hardware)',
+        data: hwSwRobots.map(r=>-r.cci.actuation),
+        backgroundColor:'#4fd1c5',
+        borderRadius:4,
+        barPercentage:0.72
+      },
+      {
+        label:'Control architecture (avg. feedback/sensing/computation)',
+        data: hwSwRobots.map(r=>(r.cci.feedback+r.cci.sensing+r.cci.computation)/3),
+        backgroundColor:'#7c9cff',
+        borderRadius:4,
+        barPercentage:0.72
+      }
+    ]
+  },
   options:{
+    indexAxis:'y',
     responsive:true,
-    plugins:{ legend:{position:'bottom', labels:{boxWidth:10, font:{size:11}}} },
+    plugins:{
+      legend:{position:'bottom', labels:{boxWidth:10, font:{size:11}}},
+      tooltip:{ callbacks:{ label:(ctx)=> `${ctx.dataset.label}: ${Math.abs(ctx.raw).toFixed(1)}` } }
+    },
     scales:{
-      x:{ min:0, max:5, title:{display:true, text:'Actuation (hardware) score'}, grid:{color:'#1c2733'} },
-      y:{ min:0, max:5, title:{display:true, text:'Avg. control-architecture score'}, grid:{color:'#1c2733'} }
+      x:{ min:-4.5, max:4.5, ticks:{ callback:(v)=>Math.abs(v), stepSize:1 }, grid:{color:'#1c2733'}, title:{display:true, text:'← hardware      score      software →'} },
+      y:{ grid:{display:false}, ticks:{font:{size:11.5}} }
     }
   }
 });
@@ -937,9 +1137,23 @@ new Chart(document.getElementById('chartHwVsControl'), {
 // 4. Actuator economy
 new Chart(document.getElementById('chartActuatorEconomy'), {
   type:'scatter',
-  data:{ datasets: actuatorEconomy.map(a=>{ const r = robots.find(x=>x.id===a.id); return {
-    label:r.name, data:[{x:a.actuators, y:a.dof}], backgroundColor:palette[a.id], pointRadius:8, pointHoverRadius:10
-  };})},
+  data:{ datasets: [
+    {
+      type:'line',
+      label:'1× line (DOF = actuators)',
+      data:[{x:0,y:0},{x:6,y:6}],
+      borderColor:'#4b5b6d',
+      borderWidth:1.5,
+      borderDash:[6,5],
+      pointRadius:0,
+      pointHoverRadius:0,
+      fill:false,
+      order:99
+    },
+    ...actuatorEconomy.map(a=>{ const r = robots.find(x=>x.id===a.id); return {
+      label:r.name, data:[{x:a.actuators, y:a.dof}], backgroundColor:palette[a.id], pointRadius:8, pointHoverRadius:10, order:1
+    };})
+  ]},
   options:{
     responsive:true,
     plugins:{ legend:{position:'bottom', labels:{boxWidth:10, font:{size:11}}} },
@@ -961,9 +1175,9 @@ new Chart(document.getElementById('chartMassYear'), {
   options:{
     responsive:true,
     plugins:{ legend:{position:'bottom', labels:{boxWidth:10, font:{size:11}}},
-      tooltip:{ callbacks:{ label:(ctx)=>{ const r=robots[ctx.datasetIndex]; return `${r.name}: ${r.year}, ${r.mass_g}g, CCI ${r.cci.total}`; } } } },
+      tooltip:{ callbacks:{ label:(ctx)=>{ const r=robots[ctx.datasetIndex]; return `${r.name}: ${r.year}, ${massText(r)}, CCI ${r.cci.total}`; } } } },
     scales:{
-      x:{ min:2007, max:2022, title:{display:true, text:'Publication year'}, grid:{color:'#1c2733'} },
+      x:{ min:2007, max:2027, title:{display:true, text:'Publication year'}, grid:{color:'#1c2733'} },
       y:{ type:'logarithmic', title:{display:true, text:'Mass (g, log scale)'}, grid:{color:'#1c2733'} }
     }
   }
